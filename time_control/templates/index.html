@@ -1,0 +1,20 @@
+{%extends 'layout.html'%}
+
+{%block title%}
+ Управлятор
+{%endblock%}
+
+{%block content%}
+
+Hello:<b>{{userName}}</b> <br>
+
+<!--h1>{{started}}</h1-->
+
+{% if started %}
+    <a href="end">Кончить всё</a>
+{% else %}
+    <a href="start">Начать работать</a>
+{% endif %}
+
+
+{%endblock%}

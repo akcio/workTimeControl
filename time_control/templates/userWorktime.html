@@ -1,0 +1,33 @@
+{%extends 'layout.html'%}
+
+{%block title%}
+ Статистика пользователя
+{%endblock%}
+
+{%block content%}
+
+
+<table class="table table-bordered table-striped">
+    <thead>
+    <tr>
+        <th>Start time</th>
+        <th>End time</th>
+        <th> Total</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for item in times %}
+    <tr>
+        <td>{{item.startTime}}</td>
+        <td>{{item.endTime}}</td>
+        <td>{{item.get_time_diff}}</td>
+    </tr>
+    {% endfor %}
+    <tr>
+        <td colspan="2">Total</td>
+        <td>{{total}} +- (1 hour) </td>
+    </tr>
+    </tbody>
+</table>
+
+{%endblock%}
