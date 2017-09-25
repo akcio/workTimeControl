@@ -64,8 +64,8 @@ def getStatisticByUser(user, reportStart = datetime.min, reportEnd = datetime.ma
 def getStatistic(request, userName, reportStart = datetime.min, reportEnd = datetime.max):
     try:
         user = User.objects.get_by_natural_key(userName)
-        reportStart = datetime.strptime(request.GET.get('start', '1900-01-01-00-00'), '%Y-%m-%d-%H-%M')
-        reportEnd = datetime.strptime(request.GET.get('end', '2050-12-31-23-59'), '%Y-%m-%d-%H-%M')
+        reportStart = datetime.strptime(request.GET.get('start', '1990-01-01-00-00'), '%Y-%m-%d-%H-%M')
+        reportEnd = datetime.strptime(request.GET.get('end', '9999-12-31-23-59'), '%Y-%m-%d-%H-%M')
     except:
         raise Http404("No user")
     allDateTime = getStatisticByUser(user, reportStart, reportEnd)
