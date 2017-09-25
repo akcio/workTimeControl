@@ -64,15 +64,15 @@ def getStatisticByUser(user, reportStart = datetime.min, reportEnd = datetime.ma
 def getStatistic(request, userName, reportStart = datetime.min, reportEnd = datetime.max):
     try:
         user = User.objects.get_by_natural_key(userName)
-        reportStart = datetime.strptime(request.GET.get('start', '0001-01-01-00-00'), '%Y-%m-%d-%H-%M')
-        reportEnd = datetime.strptime(request.GET.get('end', '9999-12-31-23-59'), '%Y-%m-%d-%H-%M')
+        reportStart = datetime.strptime(request.GET.get('start', '1900-01-01-00-00'), '%Y-%m-%d-%H-%M')
+        reportEnd = datetime.strptime(request.GET.get('end', '2050-12-31-23-59'), '%Y-%m-%d-%H-%M')
     except:
         raise Http404("No user")
     allDateTime = getStatisticByUser(user, reportStart, reportEnd)
     if allDateTime > 0:
-        return render(request, 'userWorktime.html', {'total' : allDateTime, 'times': WorkTime.objects.all().filter(user=user, startTime__gte = reportStart, endTime__lte = reportEnd)})
+        return render(request, 'userWorktime.html', {'startDate' : reportStart.strftime("%Y-%m-%d-00-00"), 'endDate' : reportEnd.strftime("%Y-%m-%d-23-59"), 'total' : allDateTime, 'times': WorkTime.objects.all().filter(user=user, startTime__gte = reportStart, endTime__lte = reportEnd)})
         #return HttpResponse("All: %5.f" % allDateTime)
-    return render(request, 'userWorktime.html', {'total' : 0, 'times': {}})
+    return render(request, 'userWorktime.html', {'total' : 0, 'times': {}, 'startDate' : reportStart.strftime("%Y-%m-%d-00-00"), 'endDate' : reportEnd.strftime("%Y-%m-%d-23-59")})
 
 def getAllInfo(request, startWith=1):
     from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
